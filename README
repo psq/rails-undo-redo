@@ -1,0 +1,48 @@
+= RUR (Rails mutli-level Undo Redo)
+
+This plugin can handle creating an undo stack for any modification to any model that includes the statement:
+
+ acts_as_undoable
+
+== recording changes
+
+Wrap any code that changes any ActiveRecord model in a controller with
+
+ changes("Description of change") do
+   ...
+ end
+
+== Undo/Redo
+
+From any controller, to Undo, call
+
+ UndoManger.undo
+
+To Redo the previous action
+
+ UndoManger.redo
+
+TBD-1: should any controller include an undo/redo method (which would simplify the helpers)
+
+== Undo stack depth
+
+TBD-1
+
+== View helpers
+
+At least one controller needs to implement undo/redo (unless TBD-1?).
+
+These 2 helpers return the description of the action to be undone, and the one to be redone.
+
+undo_description
+redo_description
+
+So, for example 
+
+ link_to undo_description, { :action => "undo" }
+ link_to redo_description, { :action => "redo" }
+
+
+== Migration
+
+A migration is included in the migrations directory which must be run before using this plugin.
